@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { WebsocketService } from './services/websocket.service';
 import { ChatService } from './services/chat.service';
 
@@ -7,13 +7,18 @@ import { ChatService } from './services/chat.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'basico';
 
   constructor(
     public wsServices: WebsocketService,
     public chatService: ChatService
-  ) {
+  ) {}
 
+  ngOnInit() {
+    this.chatService.getMessagePrivate().subscribe(msg => {
+      console.log(msg);
+    });
   }
+
 }
